@@ -25,9 +25,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE include/)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ANALYSIS_PROJECT_INSTALLED)
 
 #Build debug exeuctable 
-add_executable(${DEBUG_TARGET} ${SOURCES})
-target_include_directories(${DEBUG_TARGET} PRIVATE include/)
-target_link_libraries(${DEBUG_TARGET} PRIVATE GSL::gsl GSL::gslcblas)
+if (CMAKE_BUILD_TOOL STREQUAL "Debug")
+    add_executable(${DEBUG_TARGET} ${SOURCES})
+    target_include_directories(${DEBUG_TARGET} PRIVATE include/)
+    target_link_libraries(${DEBUG_TARGET} PRIVATE GSL::gsl GSL::gslcblas)
+endif()
 
 #Set optimization 
 #The MSVC compiler takes different compiler flags.
