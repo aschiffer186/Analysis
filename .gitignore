@@ -1,0 +1,10 @@
+.vscode
+
+#Ignor binaries (but not library binaries)
+bin/
+!lib/Windows/bin/
+!lib/MacOS/bin/
+
+#Ignore build folder
+build/
+Analysis/
