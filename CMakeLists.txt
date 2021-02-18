@@ -36,7 +36,10 @@ endif()
 #Therefore we must check to make sure it is not the compiler being used
 #if we are passing GCC optimization flags. 
 if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    target_compile_options(${PROJECT_NAME} PRIVATE "-O2")
+    target_compile_options(${PROJECT_NAME} PRIVATE "-Ofast")
+    target_compile_options(${PROJECT_NAME} PRIVATE "-Wall")
+    target_compile_options(${PROJECT_NAME} PRIVATE "-Werror")
+    target_compile_options(${PROJECT_NAME} PRIVATE "-pedantic")
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE "/O2")
 endif()

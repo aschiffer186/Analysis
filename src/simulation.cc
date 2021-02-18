@@ -198,7 +198,8 @@ void giving_day_prediction()
             continue;
         }
 
-        int num_leadership, num_dancers, num_simulations;
+        int num_leadership, num_dancers;
+        size_t num_simulations;
         double max_matching_amt, leadership_engagement, dancer_engagement;
 
         std::cout << "Enter number of leadership members: ";
@@ -217,7 +218,7 @@ void giving_day_prediction()
         max_matching_amt = get_max_matching();
 
         std::cout << "Enter the number of simulations (recommended value: 500): ";
-        num_simulations = get_int_value();
+        num_simulations = static_cast<size_t>(get_int_value());
 
         std::vector<double> dancer_data;
         std::vector<double> leadership_data;
