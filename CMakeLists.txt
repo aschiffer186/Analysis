@@ -10,6 +10,7 @@ if (WIN32)
     set(GSL_LIBRARY_SUFFX dll)
 elseif (APPLE)
     set (GSL_ROOT_DIR lib/MacOS)
+    set (GSL_LIBRARY_SUFFIX a)
 endif()
 
 #Find and build GSL library
@@ -49,11 +50,13 @@ set(CMAKE_INSTALL_PREFIX "../Analysis")
 set(GSL_SHARED_LIB_PREFIX ${GSL_ROOT_DIR}/bin)
 
 #Make install folder
-#intall libraries
-install (FILES ${GSL_SHARED_LIB_PREFIX}/gsl.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
-install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblas.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
-install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblasd.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
-install (FILES ${GSL_SHARED_LIB_PREFIX}/gsld.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
+#Intall libraries
+if (WIN32)
+    install (FILES ${GSL_SHARED_LIB_PREFIX}/gsl.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
+    install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblas.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
+    install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblasd.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
+    install (FILES ${GSL_SHARED_LIB_PREFIX}/gsld.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
+endif()
 #Instal model 
 install (FILES models/2020d.txt DESTINATION model)
 install (FILES models/2020l.txt DESTINATION model)
@@ -61,4 +64,5 @@ install (FILES models/2019d.txt DESTINATION model)
 install (FILES models/2019l.txt DESTINATION model)
 install (FILES models/npd.txt DESTINATION model)
 install (FILES models/npl.txt DESTINATION model)
+#Install Target
 install(TARGETS "Analysis" CONFIGURATIONS Release DESTINATION "bin")
