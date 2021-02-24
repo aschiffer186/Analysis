@@ -184,8 +184,8 @@ void giving_day_prediction()
         } 
         else if (input.find("3") != std::string::npos)
         {
-            std::cout << "To be implemented soon: " << std::endl;
-            continue;
+            dancer_model += "2018d.txt";
+            leadership_model += "2018l.txt";
         } 
         else if (input.find("4") != std::string::npos)
         {
@@ -194,8 +194,8 @@ void giving_day_prediction()
         }
         else if (input.find("5") != std::string::npos)
         {
-            std::cout << "To be implemented soon:" << std::endl;
-            continue;
+            dancer_model += "tyad.txt";
+            leadership_model += "tyal.txt";
         }
 
         int num_leadership, num_dancers;

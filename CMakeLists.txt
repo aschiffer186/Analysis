@@ -50,19 +50,17 @@ set(CMAKE_INSTALL_PREFIX "../Analysis")
 set(GSL_SHARED_LIB_PREFIX ${GSL_ROOT_DIR}/bin)
 
 #Make install folder
-#Intall libraries
+#Install libraries
 if (WIN32)
     install (FILES ${GSL_SHARED_LIB_PREFIX}/gsl.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
     install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblas.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
     install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblasd.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
     install (FILES ${GSL_SHARED_LIB_PREFIX}/gsld.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
 endif()
-#Instal model 
-install (FILES models/2020d.txt DESTINATION model)
-install (FILES models/2020l.txt DESTINATION model)
-install (FILES models/2019d.txt DESTINATION model)
-install (FILES models/2019l.txt DESTINATION model)
-install (FILES models/npd.txt DESTINATION model)
-install (FILES models/npl.txt DESTINATION model)
+#Instal models
+file(GLOB model_files "models/*.txt")
+foreach(file ${model_files}) 
+    install(FILES ${file} DESTINATION bin)
+endforeach()
 #Install Target
-install(TARGETS "Analysis" CONFIGURATIONS Release DESTINATION "bin")
+install(TARGETS ${PROJECT_NAME} DESTINATION "bin")
