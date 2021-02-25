@@ -6,12 +6,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
 #Use correct GSL library for each system
 if (WIN32)
-    set(GSL_ROOT_DIR lib/Windows)
+    set(LIB_ROOT_DIR lib/Windows)
+    set(GSL_ROOT_DIR ${LIB_ROOT_DIR})
     set(GSL_LIBRARY_SUFFX dll)
 else ()
-    set (GSL_ROOT_DIR lib/MacOS)
-    set (GSL_LIBRARY_SUFFIX a)
+    set(LIB_ROOT_DIR lib/MacOS)
+    set(GSL_ROOT_DIR ${LIB_ROOT_DIR})
+    set(GSL_LIBRARY_SUFFIX a)
 endif()
+
+set(SHARED_LIB_PREFIX ${LIB_ROOT_DIR}/bin)
 
 #Find and build GSL library
 find_package(GSL REQUIRED)
@@ -47,20 +51,19 @@ endif()
 
 #Set install folder properties
 set(CMAKE_INSTALL_PREFIX "../Analysis")
-set(GSL_SHARED_LIB_PREFIX ${GSL_ROOT_DIR}/bin)
 
 #Make install folder
 #Install libraries
 if (WIN32)
-    install (FILES ${GSL_SHARED_LIB_PREFIX}/gsl.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
-    install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblas.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
-    install (FILES ${GSL_SHARED_LIB_PREFIX}/gslcblasd.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
-    install (FILES ${GSL_SHARED_LIB_PREFIX}/gsld.${GSL_LIBRARY_SUFFX} DESTINATION "bin")
+    file(GLOB bin_files ${SHARED_LIB_PREFIX}/*.dll)
+    foreach(file ${BIN_FILES})
+        install(FILES file DESTINATION bin)
+    endforeach()
 endif()
 #Instal models
 file(GLOB model_files "models/*.txt")
 foreach(file ${model_files}) 
-    install(FILES ${file} DESTINATION bin)
+    install(FILES ${file} DESTINATION model)
 endforeach()
 #Install Target
 install(TARGETS ${PROJECT_NAME} DESTINATION "bin")
